@@ -1,0 +1,23 @@
+pip install pandas-datareader
+pip install DateTime
+
+import pandas as pd
+from pandas_datareader import data, wb
+import datetime
+
+start = pd.to_datetime('2019-11-21')
+end = pd.to_datetime('today')
+
+LYG_df = data.DataReader('LYG', 'yahoo', start , end)
+
+import plotly.graph_objs as go
+fig = go.Figure()
+
+fig.add_trace(go.Scatter(x=LYG_df.index, y=LYG_df['Close']))
+fig.update_xaxes(
+    title = 'Date',rangeslider_visible=True)
+
+fig.update_yaxes(
+    title = 'Stock Price (USD)')
+
+fig.show()
